@@ -8,6 +8,7 @@ Thumbs.db
 # built application files
 *.apk
 *.ap_
+*.html
 
 # files for the dex VM
 *.dex
