@@ -30,23 +30,6 @@ class Controller(tableFile: XSSFWorkbook, sheetIndex: Int) {
         return teachers
     }
 
-    private fun getGroups(): List<String> {
-        val groups: MutableList<String> = mutableListOf()
-        for (rowNumber in 0..table.lastRowNum) {
-            val row = table.getRow(rowNumber) ?: continue
-            for (columnNumber in 1..row.lastCellNum) {
-                val cell = row.getCell(columnNumber) ?: continue
-                val cellContent = cell.toString()
-                var containsGroups = cellContent.any { it.isDigit() } && !cellContent.contains("расписание")
-                if (containsGroups) {
-                    val cellGroups = cellContent.split(" ").first().split("\\;|\\~".toRegex())
-                    groups.addAll(cellGroups)
-                }
-            }
-        }
-        return groups.distinct()
-    }
-
     private fun getCellRange(rowRangeIndex: Int, columnIndex: Int, rowRangeSize: Int): List<XSSFCell> {
         val cells: MutableList<XSSFCell> = mutableListOf()
         for (rowIndex in rowRangeIndex until rowRangeIndex + rowRangeSize) {
